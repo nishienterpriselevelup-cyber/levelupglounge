@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | LevelUp Gaming Cafe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/cafelogo.png">
+    <style>
+        .gallery-msg-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+            text-align: center;
+        }
+
+        .gallery-msg {
+            font-size: 2rem;
+            color: var(--neon-blue);
+            /* Assuming this variable exists or I will use a fallback */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
+                    <img src="assets/cafelogo.png" alt="Logo" class="nav-logo">
+                    <span>LEVELUP<span class="text-neon-green">LOUNGE</span></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#tournament">Tournament</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="index.html#location">Contact Us</a></li>
+
+            </ul>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container gallery-msg-container">
+            <h1 class="gallery-msg glitch-text" data-text="Stay tuned its coming">Stay tuned its coming</h1>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LevelUp Gaming Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

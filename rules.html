@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Book | LevelUp Gaming Cafe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/cafelogo.png">
+    <style>
+        .rules-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            /* Preserves whitespace and line breaks from textarea */
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-main);
+        }
+
+        .back-btn {
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <img src="assets/cafelogo.png" alt="Logo" class="nav-logo">
+                <span>LEVELUP<span class="text-neon-green">LOUNGE</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournament.html">Tournament</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="index.html#location">Contact Us</a></li>
+                <li><a href="register.html" class="btn btn-sm btn-primary">Register Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 120px; min-height: 70vh;">
+        <a href="index.html" class="btn btn-sm back-btn">← Back to Home</a>
+
+        <h2 class="section-title">Tournament <span class="text-neon-pink">Rule Book</span></h2>
+
+        <div id="rulesContainer" class="rules-content">
+            Loading rules...
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LevelUp Gaming Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rulesContainer = document.getElementById('rulesContainer');
+            const storedRules = localStorage.getItem('cafe_rules');
+
+            if (storedRules) {
+                rulesContainer.textContent = storedRules;
+            } else {
+                rulesContainer.innerHTML = '<p style="color: var(--text-dim); text-align: center;">No rules have been set yet. Please check back later.</p>';
+            }
+        });
+    </script>
+</body>
+
+</html>

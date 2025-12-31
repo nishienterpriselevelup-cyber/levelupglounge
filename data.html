@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Data | LevelUp Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/valorant-icon.png"> <!-- Fallback icon -->
+    <style>
+        .split-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .data-column {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 500px;
+        }
+
+        .column-header {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .verified-header {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .not-verified-header {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px rgba(77, 77, 255, 0.3);
+        }
+
+        .team-card-mini {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .team-card-mini h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card-mini p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 0.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" style="position: sticky;">
+        <div class="container nav-content">
+            <div class="logo">
+                <span class="text-neon-blue">DATA</span> // VERIFICATION
+            </div>
+            <div class="nav-links">
+                <a href="admin.html">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="split-container">
+                <!-- Verified Column -->
+                <div class="data-column">
+                    <h2 class="column-header verified-header">Verified Teams</h2>
+                    <div id="verifiedList">
+                        <!-- Items injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Not Verified Column -->
+                <div class="data-column">
+                    <h2 class="column-header not-verified-header">Not Verified Teams</h2>
+                    <div id="notVerifiedList">
+                        <!-- Items injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadVerificationData);
+
+        function loadVerificationData() {
+            const data = JSON.parse(localStorage.getItem('tournament_registrations') || '[]');
+            const verifiedList = document.getElementById('verifiedList');
+            const notVerifiedList = document.getElementById('notVerifiedList');
+
+            verifiedList.innerHTML = '';
+            notVerifiedList.innerHTML = '';
+
+            data.forEach(team => {
+                const card = document.createElement('div');
+                card.className = 'team-card-mini';
+
+                // Construct roster list
+                let rosterText = 'No roster data';
+                if (team.roster) {
+                    rosterText = team.roster.map(p => `${p.name} [${p.rank || '-'}]`).join(', ');
+                }
+
+                card.innerHTML = `
+                    <h4>${team.teamName}</h4>
+                    <p><strong>Captain:</strong> ${team.captainEmail}</p>
+                    <p><strong>Phone:</strong> ${team.roster ? team.roster[0].phone : 'N/A'}</p>
+                    <p><strong>Roster:</strong> ${rosterText}</p>
+                    <p><small>${team.timestamp}</small></p>
+                `;
+
+                if (team.status === 'verified') {
+                    card.style.borderLeft = '3px solid var(--neon-green)';
+                    verifiedList.appendChild(card);
+                } else if (team.status === 'not_verified') {
+                    card.style.borderLeft = '3px solid var(--neon-pink)';
+                    notVerifiedList.appendChild(card);
+                }
+                // If status is pending (undefined), it shows in neither, 
+                // effectively waiting in the main dashboard to be sorted.
+            });
+
+            if (verifiedList.children.length === 0) verifiedList.innerHTML = '<p style="text-align:center; color:var(--text-dim)">No verified teams yet.</p>';
+            if (notVerifiedList.children.length === 0) notVerifiedList.innerHTML = '<p style="text-align:center; color:var(--text-dim)">No unverified teams yet.</p>';
+        }
+    </script>
+</body>
+
+</html>
